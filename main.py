@@ -95,8 +95,33 @@ def Get_Neighbors(train, test_row, num):
 
 # Press the green button in the gutter to run the script.
 
-def update_image():
-    pass
+def update_image(test_row1, test_row2):
+    im = Image.open("land.jpg")
+    pix = im.load()
+    distance1 = list()  # []
+    distance2 = list()  # []
+    data1 = []
+    data2 = []
+
+    for x in range(im_w):
+        for y in range(im_h):
+            rgb = []
+            Blue = pix[x, y][0]
+            Green = pix[x, y][1]
+            Red = pix[x, y][2]
+            rgb.append(Red)
+            rgb.append(Green)
+            rgb.append(Blue)
+            dist1 = Euclidean_distance(test_row1, rgb)
+            dist2 = Euclidean_distance(test_row2, rgb)
+            if dist1< dist2:
+                pix[x, y] = (240, 140, 40)
+            else:
+                pix[x, y] = (40, 140, 240)
+
+    im.save("knn.jpg")
+    im.close()
+
 
 def predict_classification(train, test_row, num):
     Neighbors = GetTestAreas(train, test_row, num)
@@ -151,7 +176,7 @@ if __name__ == '__main__':
     print(test_r_2)
     #print("We expected {}, Got {}".format(dataset[-1][-1], prediction))
 
-
+    update_image(test_r_1, test_r_2)
     pass
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
