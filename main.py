@@ -16,11 +16,17 @@ def Euclidean_distance(row1, row2):
 
 def get_row_val(test_rows):
     print(len(test_rows))
-    r = -1
-    g = -1
-    b = -1
+    r = 0
+    g = 0
+    b = 0
     for neb in test_rows:
-        r, g, b = (1 / len(neb)) * (neb[0]), (1 / len(neb)) * (neb[1]), (1 / len(neb)) * (neb[2])
+        r += neb[0]
+        g += neb[1]
+        b += neb[2]
+
+    r = r / len(test_rows)
+    g = g / len(test_rows)
+    b = b / len(test_rows)
         #print(neb)
     #print (r, g, b)
     tr = list()
@@ -153,6 +159,7 @@ if __name__ == '__main__':
             rgb.append(Blue)
             dataset.append(rgb)
     im.close()
+    print(dataset)
     '''dataset = [
         [7.673756466, 3.508563011, 1],
         [1.465489372, 2.362125076, 0],
@@ -169,8 +176,8 @@ if __name__ == '__main__':
 
     global test_r_1
     global test_r_2
-    test_r_1 = [255, 110, 80]
-    test_r_2 = [100, 110, 230]
+    test_r_1 = [176, 137, 128]
+    test_r_2 = [12, 27, 29]
     prediction = predict_classification(dataset, test_r_1, test_r_2)
     print(test_r_1)
     print(test_r_2)
