@@ -1,0 +1,64 @@
+# This is a sample Python script.
+
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from math import sqrt
+import numpy as np
+
+
+def Euclidean_distance(row1, row2):
+    distance = 0
+    for i in range(len(row1) - 1):
+        distance += (row1[i] - row2[i]) ** 2  # (x1-x2)**2+(y1-y2)**2
+    return sqrt(distance)
+
+
+def Get_Neighbors(train, test_row, num):
+    distance = list()  # []
+    data = []
+    for i in train:
+        dist = Euclidean_distance(test_row, i)
+        distance.append(dist)
+        data.append(i)
+    print(data)
+    distance = np.array(distance)
+    data = np.array(data)
+    """ we are finding index of min distance """
+    index_dist = distance.argsort()
+    """ we arange our data acco. to index """
+    data = data[index_dist]
+    """ we are slicing num number of datas """
+    neighbors = data[:num]
+
+    return neighbors
+
+
+# Press the green button in the gutter to run the script.
+
+def predict_classification(train, test_row, num):
+    Neighbors = Get_Neighbors(train, test_row, num)
+    Classes = []
+    for i in Neighbors:
+        Classes.append(i[-1])
+    prediction = max(Classes, key=Classes.count)
+    return prediction
+
+
+if __name__ == '__main__':
+    dataset = [
+        [2.7810836, 2.550537003, 0],
+        [1.465489372, 2.362125076, 0],
+        [3.396561688, 4.400293529, 0],
+        [1.38807019, 1.850220317, 0],
+        [3.06407232, 3.005305973, 0],
+        [7.627531214, 2.759262235, 1],
+        [5.332441248, 2.088626775, 1],
+        [6.922596716, 1.77106367, 1],
+        [8.675418651, -0.242068655, 1],
+        [7.673756466, 3.508563011, 1]
+    ]
+    prediction = predict_classification(dataset[:-1], dataset[-1], 4)
+    print("We expected {}, Got {}".format(dataset[-1][-1], prediction))
+    pass
+
+# See PyCharm help at https://www.jetbrains.com/help/pycharm/
