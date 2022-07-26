@@ -181,7 +181,7 @@ def update_image(test_row1, test_row2):
     im.close()
 
 def update_image3(test_row1, test_row2, test_row3):
-    im = Image.open("land.jpg")
+    im = Image.open("land2.jpg")
     pix = im.load()
     distance1 = list()  # []
     distance2 = list()  # []
@@ -222,7 +222,7 @@ def predict_classification(train, test_row, num):
 
 
 if __name__ == '__main__':
-    im = Image.open("land.jpg")
+    im = Image.open("land2.jpg")
     pix = im.load()
 
     im_w = im.size[0]
